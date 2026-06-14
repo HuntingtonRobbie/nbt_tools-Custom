@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "${description}",
+  "authors": [
+    "${authors}"
+  ],
+  "license": "${license}",
+  "contact": {
+    "issues": "https://github.com/TheTypholorian/nbt_tools/issues/",
+    "sources": "https://github.com/TheTypholorian/nbt_tools/"
+  },
+  "icon": "icon.png",
+  "depends": {
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version_range}",
+    "fabric-language-kotlin": "*"
+  }
+}

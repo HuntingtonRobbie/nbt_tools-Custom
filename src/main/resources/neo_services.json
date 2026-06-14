@@ -1,0 +1,8 @@
+{
+  "net.typho.big_shot_lib.api.NeoCommonInitializer": [
+    "net.typho.nbt_tools.NBTTools"
+  ],
+  "net.typho.big_shot_lib.api.client.NeoClientInitializer": [
+    "net.typho.nbt_tools.client.NBTToolsClient"
+  ]
+}

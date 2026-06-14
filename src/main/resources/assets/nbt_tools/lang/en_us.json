@@ -1,0 +1,4 @@
+{
+  "nbt_tools.copied": "Copied item %s",
+  "nbt_tools.failed": "Failed to copy item: %s"
+}
