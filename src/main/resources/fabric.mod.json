@@ -1,21 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "${id}",
+  "id": "nbt_tools",
   "version": "${version}",
-  "name": "${name}",
-  "description": "${description}",
+  "name": "NBT Tools",
+  "description": "View NBT and tags of items and blocks",
   "authors": [
-    "${authors}"
+    "The Typhothanian"
   ],
-  "license": "${license}",
+  "license": "MIT License",
   "contact": {
     "issues": "https://github.com/TheTypholorian/nbt_tools/issues/",
     "sources": "https://github.com/TheTypholorian/nbt_tools/"
   },
   "icon": "icon.png",
+  "environment": "client",
+  "mixins": [
+    "nbt_tools.mixins.json"
+  ],
   "depends": {
+    "fabricloader": ">=0.19.5",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version_range}",
+    "minecraft": "~26.3",
+    "java": ">=25",
     "fabric-language-kotlin": "*"
   }
 }
