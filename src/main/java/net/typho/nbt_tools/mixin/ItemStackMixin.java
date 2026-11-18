@@ -34,11 +34,7 @@ public abstract class ItemStackMixin {
     public abstract Item getItem();
 
     @ModifyArg(
-            //? if <1.21.11 {
-            /*method = "getTooltipLines",
-            *///? } else {
             method = "addDetailsToTooltip",
-            //? }
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/network/chat/MutableComponent;withStyle(Lnet/minecraft/ChatFormatting;)Lnet/minecraft/network/chat/MutableComponent;"
@@ -50,11 +46,7 @@ public abstract class ItemStackMixin {
 
     @SuppressWarnings("LocalMayBeArgsOnly")
     @Inject(
-            //? if <1.21.11 {
-            /*method = "getTooltipLines",
-            *///? } else {
             method = "addDetailsToTooltip",
-            //? }
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/level/Level;enabledFeatures()Lnet/minecraft/world/flag/FeatureFlagSet;"

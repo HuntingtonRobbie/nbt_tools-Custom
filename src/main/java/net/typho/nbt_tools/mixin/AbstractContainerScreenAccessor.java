@@ -12,7 +12,4 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface AbstractContainerScreenAccessor {
     @Accessor("hoveredSlot")
     @Nullable Slot nbt_tools$getHoveredSlot();
-
-    @Accessor("draggingItem")
-    @NotNull ItemStack nbt_tools$getDraggingItem();
 }

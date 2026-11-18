@@ -46,11 +46,7 @@ public class EditBoxMixin implements EditBoxExtension {
     }
 
     @WrapOperation(
-            //? if <26.1 {
-            /*method = "renderWidget",
-            *///? } else {
             method = "extractWidgetRenderState",
-            //? }
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/components/EditBox;getMaxLength()I"
