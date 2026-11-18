@@ -13,7 +13,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.input.KeyEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,12 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.lwjgl.glfw.GLFW.*;
-
-//? if >=1.21.11 {
-import net.minecraft.client.input.KeyEvent;
-//? }
 
 @Mixin(KeyboardHandler.class)
 public class KeyboardHandlerMixin {
@@ -36,28 +31,16 @@ public class KeyboardHandlerMixin {
     )
     private void keyPress(
             long window,
-            //? if <1.21.11 {
-            /*int key,
-            int scanCode,
-            int action,
-            int modifiers,
-            *///? } else {
             int action,
             KeyEvent event,
-            //? }
             CallbackInfo ci
     ) {
-        //? if <1.21.11 {
-        /*if (key == GLFW_KEY_C && (modifiers & GLFW_MOD_CONTROL) != 0 && action == GLFW_PRESS) {
-        *///? } else {
-        if (event.key() == GLFW_KEY_C && event.hasControlDown() && action == GLFW_PRESS) {
-        //? }
-            if (Minecraft.getInstance().screen instanceof AbstractContainerScreenAccessor accessor) {
+        if (event.key() == InputConstants.KEY_C && event.hasControlDown() && action == InputConstants.PRESS) {
+            if (Minecraft.getInstance().gui.screen() instanceof AbstractContainerScreenAccessor accessor) {
                 ItemStack copyStack;
 
-                if (!accessor.nbt_tools$getDraggingItem().isEmpty()) {
-                    copyStack = accessor.nbt_tools$getDraggingItem();
-                } else if (accessor.nbt_tools$getHoveredSlot() != null) {
+                // 26.3 has no separate touchscreen "dragging item" any more: copy the hovered slot
+                if (accessor.nbt_tools$getHoveredSlot() != null) {
                     //noinspection DataFlowIssue
                     copyStack = accessor.nbt_tools$getHoveredSlot().getItem();
                 } else {
@@ -104,13 +87,9 @@ public class KeyboardHandlerMixin {
                             command.append(']');
                         }
 
-                        //? if <1.21.11 {
-                        /*GLFW.glfwSetClipboardString(Minecraft.getInstance().getWindow().getWindow(), command);
-                         *///? } else {
-                        GLFW.glfwSetClipboardString(Minecraft.getInstance().getWindow().handle(), command);
-                        //? }
+                        Minecraft.getInstance().keyboardHandler.setClipboard(command.toString());
 
-                        Minecraft.getInstance().getChatListener().handleSystemMessage(
+                        Minecraft.getInstance().gui.chatListener().handleSystemMessage(
                                 Component.translatable(
                                         "nbt_tools.copied",
                                         id.toString()
@@ -120,7 +99,7 @@ public class KeyboardHandlerMixin {
                     } catch (RuntimeException e) {
                         e.printStackTrace(System.err);
 
-                        Minecraft.getInstance().getChatListener().handleSystemMessage(
+                        Minecraft.getInstance().gui.chatListener().handleSystemMessage(
                                 Component.translatable(
                                         "nbt_tools.failed",
                                         e.getMessage()
